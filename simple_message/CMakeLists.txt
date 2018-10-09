@@ -87,6 +87,7 @@ add_custom_command(
   OUTPUT  ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}_dummy.cpp
   COMMAND ${CMAKE_COMMAND} -E touch ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}_dummy.cpp)
 add_library(${PROJECT_NAME}_dummy ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}_dummy.cpp)
+set_target_properties(${PROJECT_NAME}_dummy PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS TRUE) 
 # unfortunately this will have to be installed, but the linker will remove it
 # from the library dependencies of dependent targets, as it contains no symbols
 # that can be imported from it.
@@ -98,20 +99,23 @@ install(TARGETS ${PROJECT_NAME}_dummy DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATI
 
 # DEFAULT LIBRARY (SAME ENDIAN)
 add_library(simple_message ${SRC_FILES})
-target_link_libraries(simple_message ${catkin_LIBRARIES})
+target_link_libraries(simple_message ${catkin_LIBRARIES} Ws2_32.lib)
 add_dependencies(simple_message ${industrial_msgs_EXPORTED_TARGETS})
+set_target_properties(simple_message PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
 
 # ALTERNATIVE LIBRARY (DIFFERENT ENDIAN)
 add_library(simple_message_bswap ${SRC_FILES})
 set_target_properties(simple_message_bswap PROPERTIES COMPILE_DEFINITIONS "BYTE_SWAPPING")
-target_link_libraries(simple_message_bswap ${catkin_LIBRARIES})
+target_link_libraries(simple_message_bswap ${catkin_LIBRARIES} Ws2_32.lib)
 add_dependencies(simple_message_bswap ${industrial_msgs_EXPORTED_TARGETS})
+set_target_properties(simple_message_bswap PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
 
 # ALTERNATIVE LIBRARY (64-bit floats)
 add_library(simple_message_float64 ${SRC_FILES})
 set_target_properties(simple_message_float64 PROPERTIES COMPILE_DEFINITIONS "FLOAT64")
-target_link_libraries(simple_message_float64 ${catkin_LIBRARIES})
+target_link_libraries(simple_message_float64 ${catkin_LIBRARIES} Ws2_32.lib)
 add_dependencies(simple_message_float64 ${industrial_msgs_EXPORTED_TARGETS})
+set_target_properties(simple_message_float64 PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
 
 if(CATKIN_ENABLE_TESTING)
 

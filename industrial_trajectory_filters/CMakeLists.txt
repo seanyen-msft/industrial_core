@@ -12,6 +12,10 @@ catkin_package(
     LIBRARIES ${PROJECT_NAME}
 )
 
+if(MSVC)
+  add_compile_options(/Zc:__cplusplus)
+endif()
+
 include_directories(include
   ${catkin_INCLUDE_DIRS}
 )
@@ -27,7 +31,7 @@ target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
 
 
 install(TARGETS ${PROJECT_NAME}
-  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
+  DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
 
 install(DIRECTORY include/${PROJECT_NAME}/
   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})

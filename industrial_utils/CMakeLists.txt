@@ -17,6 +17,7 @@ include_directories(include
 
 add_library(${PROJECT_NAME} src/utils.cpp src/param_utils.cpp)
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
+set_target_properties(${PROJECT_NAME} PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
 
 
 
@@ -28,7 +29,7 @@ endif()
 
 install(
     TARGETS ${PROJECT_NAME} 
-    LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
+    DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
 
 install(
     DIRECTORY include/${PROJECT_NAME}/

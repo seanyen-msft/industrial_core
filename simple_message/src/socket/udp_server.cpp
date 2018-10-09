@@ -145,11 +145,11 @@ bool UdpServer::makeConnect()
     // copy to local array, since ByteArray no longer supports
     // direct pointer-access to data values
     const int sendLen = send.getBufferSize();
-    char      localBuffer[sendLen];
-    send.unload(localBuffer, sendLen);
+    std::unique_ptr<char[]> localBuffer(new char[sendLen]);
+    send.unload(localBuffer.get(), sendLen);
 
     // Send a reply handshake
-    this->rawSendBytes(localBuffer, sendLen);
+    this->rawSendBytes(localBuffer.get(), sendLen);
     this->setConnected(true);
     rtn = true;
     

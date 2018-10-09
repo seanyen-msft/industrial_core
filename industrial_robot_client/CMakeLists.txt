@@ -69,10 +69,12 @@ install(TARGETS ${PROJECT_NAME}_dummy DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATI
 #
 
 add_library(industrial_robot_client ${SRC_FILES})
-target_link_libraries(industrial_robot_client simple_message)
+target_link_libraries(industrial_robot_client ${catkin_LIBRARIES} simple_message)
+set_target_properties(industrial_robot_client PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
 
 add_library(industrial_robot_client_bswap ${SRC_FILES})
-target_link_libraries(industrial_robot_client_bswap simple_message_bswap)
+target_link_libraries(industrial_robot_client_bswap ${catkin_LIBRARIES} simple_message_bswap)
+set_target_properties(industrial_robot_client_bswap PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
 
 # The following executables(nodes) are for applications where the robot
 # controller and pc have the same byte order (i.e. byte swapping NOT
