@@ -38,14 +38,6 @@
 #include "log_wrapper.h"
 #endif
 
-#ifdef TRUE
-#undef TRUE
-#endif
-
-#ifdef FALSE
-#undef FALSE
-#endif
-
 #ifdef ROS
 // Files below used to translate between ROS messages enums and
 // enums defined in this file
