@@ -12,10 +12,6 @@ catkin_package(
     LIBRARIES ${PROJECT_NAME}
 )
 
-if(MSVC)
-  add_compile_options(/Zc:__cplusplus)
-endif()
-
 include_directories(include
   ${catkin_INCLUDE_DIRS}
 )
